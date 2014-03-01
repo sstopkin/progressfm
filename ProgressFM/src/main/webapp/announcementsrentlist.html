@@ -1,0 +1,150 @@
+<div id="announcementsRentSearch" class="container">
+    <div class="well well-sm">
+        <div class="row ">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label class="control-label">С даты</label>
+                    <input id="announcementsRentSearchStartDate" type="text" data-date-format="mm-dd-yy" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label class="control-label">Улица</label>
+                    <div class="controls">
+                        <input id="announcementsRentSearchStreet" type="text" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label class="control-label">Этаж</label>
+                    <div class="controls">
+                        <input id="announcementsRentSearchFloor" type="text" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label">Автор</label>
+                    <div class="controls">
+                        <select class="form-control" id="announcementsRentSearchAuthor"></select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label class="control-label">По дату</label>
+                    <input id="announcementsRentSearchEndDate" type="text" data-date-format="mm-dd-yy" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label class="control-label">Номер дома</label>
+                    <div class="controls">
+                        <input id="announcementsRentSearchHouseNumber" type="text" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label class="control-label">Этажность</label>
+                    <div class="controls">
+                        <input id="announcementsRentSearchFloors" type="text" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label class="control-label">Кол-во комнат</label>
+                    <div class="controls">
+                        <input id="announcementsRentSearchRooms" type="text" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3"></div>
+            <div class="col-md-1">
+                <div class="form-group">
+                    <label class="control-label"></label>
+                    <div class="controls">
+                        <input onclick="searchAnnouncementsRent();" type="button" class="btn btn-primary pull-right" value="Поиск">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <!-- Button trigger modal -->
+    <div class="row">
+        <a data-toggle="modal" href="#announcementsRentAddMoadl" class="btn btn-primary pull-right">Добавить объявление</a>
+    </div>
+</div>
+
+<div id="mainAnnouncementsRentContainer"></div>
+
+<!-- Modal -->
+<div class="modal" id="announcementsRentAddMoadl" tabindex="-1" role="dialog" aria-labelledby="announcementsRentAddMoadlLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Добавить объявление</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="control-label">Улица<br></label>
+                    <div class="controls">
+                        <input id="announcementsRentStreet" type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Номер дома<br></label>
+                    <div class="controls">
+                        <input id="announcementsRentHouseNumber" type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Кол-во комнат<br></label>
+                    <div class="controls">
+                        <input id="announcementsRentRooms" type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Этаж<br></label>
+                    <div class="controls">
+                        <input id="announcementsRentFloor" type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Этажность<br></label>
+                    <div class="controls">
+                        <input id="announcementsRentFloors" type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Цена<br></label>
+                    <div class="controls">
+                        <input id="announcementsRentPrice" type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Телефон<br></label>
+                    <div class="controls">
+                        <input id="announcementsRentPhone" type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Описание<br></label>
+                    <textarea id="announcementsRentDescription" class="form-control"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Закрыть</button>
+                <input onclick="addAnnouncementsRent();" type="button" class="btn btn-success pull-right" value="Добавить" />
+            </div>
+        </div> <!--/.modal-content--> 
+    </div> <!--/.modal-dialog--> 
+</div> <!--/.modal -->

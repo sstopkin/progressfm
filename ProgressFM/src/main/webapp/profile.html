@@ -1,0 +1,68 @@
+<div class="row">
+    <div class="col-md-3 profile-bg" id="forh">
+        <div class="login-header white-text">Профиль</div>
+        <div class="profile-content">
+            <p><strong>Логин:</strong><br><span id="profileEmail"></span></p>
+            <p>
+                <strong>Имя:</strong>
+                <br><span id="profileFName"></span>
+                <br><span id="profileMName"></span>
+                <br><span id="profileLName"></span>
+            </p>
+            <p><a href="#chngPwdModal" data-toggle="modal">Сменить пароль</a></p>
+        </div>
+    </div>
+    <div id="profilePlannerTasksList"></div>
+</div>
+
+
+
+<div class="modal" id="chngPwdModal" tabindex="-1" role="dialog" aria-labelledby="chngPwdModalLabel" aria-hidden="true" style="display: none">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="chngPwdModalLabel">Изменение пароля</h3>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="#" id="chngPwd" name="chngPwdForm">
+                    <div class="row">
+                        <div class="col-md-12">    
+                            <div class="form-group">
+                                <label class="control-label col-md-4" for="oldPassword">Текущий пароль: <span class="req"></span></label>
+                                <div class="col-md-8">
+                                    <input type="password" class="form-control input-block-level required" id="chngPasswordCurrent" name="oldPassword" placeholder=""> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-12">    
+                            <div class="form-group">
+                                <label class="control-label col-md-4" for="chngPassword">Новый пароль: <span class="req"></span></label>
+                                <div class="col-md-8">
+                                    <input type="password" class="form-control input-block-level required" id="chngPassword" name="password" placeholder="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row"><div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label col-md-4" for="chngPassword2">Повторите пароль: <span class="req"></span></label>
+                                <div class="col-md-8">
+                                    <input type="password" class="form-control input-block-level required" id="chngPassword2" name="password2" placeholder="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <span style="color: red;" id="chngPwdErr"></span>
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Закрыть</button>
+                <input type="button" value="Сменить" class="btn btn-primary" id="chngPwdBtn">
+            </div>
+        </div>
+    </div>
+</div>
