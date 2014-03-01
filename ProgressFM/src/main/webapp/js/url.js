@@ -47,7 +47,7 @@ function parseUrl(str) {
     }
     delete uri.source;
 //    ##################
-    var pathFileManager = "fm";
+    var pathFileManager = "filemanager";
 
     if (!uri.fragment) {
         getMainPage();
@@ -60,8 +60,7 @@ function parseUrl(str) {
     }
 
     if (arr[0] === pathFileManager) {
-        helpParseUrl(uri, arr, "fm");
-        getFileManagerPage();
+        helpParseUrl(uri, arr, "filemanager");
         return;
     }
 
@@ -75,29 +74,21 @@ function trim(str) {
 
 function helpParseUrl(uri, arr, type) {
     if (!arr[1]) {
-        if (type === "announcementsrent") {
-            getАnnouncementsRentPage();
+        if (type === "filemanager") {
+            getFileManagerPage();
             return;
         }
 
-        if (type === "announcements") {
-            getАnnouncementsPage();
-            return;
-        }
-        if (type === "customersrent") {
-            getCustomersRentPage();
-            return;
-        }
         get404Page(uri);
         return;
     }
     else {
-        if ((arr[1] === "view") && (type === "announcementsrent")) {
+        if ((arr[1]) && (type === "filemanager")) {
             if (!arr[2]) {
                 showDanger();
                 return;
             }
-            getAnnouncementsRentViewPage(arr[2]);
+            getFolderContent(arr[2]);
             return;
         }
 
