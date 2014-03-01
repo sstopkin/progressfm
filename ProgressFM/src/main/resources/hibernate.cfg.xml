@@ -20,7 +20,7 @@
         <property name="hibernate.c3p0.max_statements">0</property>
         <property name="hibernate.c3p0.min_size">10 </property>
         
-        <mapping class="org.progress.crm.logic.Announcements" />
+<!--        <mapping class="org.progress.crm.logic.Announcements" />
         <mapping class="org.progress.crm.logic.AnnouncementsRent" />
         <mapping class="org.progress.crm.logic.AnnouncementsCalls" />
         <mapping class="org.progress.crm.logic.AnnouncementsRentCalls" />
@@ -33,6 +33,6 @@
         <mapping class="org.progress.crm.logic.Planner" />
         <mapping class="org.progress.crm.logic.LogService" />
         <mapping class="org.progress.crm.logic.News" />
-        <mapping class="org.progress.crm.logic.Workers" />
+        <mapping class="org.progress.crm.logic.Workers" />-->
     </session-factory>
 </hibernate-configuration>

@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.UUID;
-import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.hibernate.Session;
@@ -68,7 +67,7 @@ public class UploadController {
         return content;
     }
 
-    public String addPhoto(Session session, InputStream uploadInputStream, FormDataContentDisposition fileDetail) throws FileNotFoundException, IOException, CustomException {
+    public String uploadFile(Session session, InputStream uploadInputStream, FormDataContentDisposition fileDetail) throws FileNotFoundException, IOException, CustomException {
         String filename = fileDetail.getFileName();
         String type = filename.substring(filename.lastIndexOf('.') + 1);
         UUID newFileName = UUID.randomUUID();
