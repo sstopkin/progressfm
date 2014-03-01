@@ -12,7 +12,7 @@ import org.hibernate.Session;
 public class FileManagerDao {
 
     public File getFileByPath(Session session, String path) {
-        File result = new File(path);
+        File result = new File("//"+path);
         return result;
     }
 
@@ -29,9 +29,9 @@ public class FileManagerDao {
         }
     }
 
-    public List getRootFolderFileList(Session session) {
+    public List getFolderFileList(Session session, String path) {
         // Directory path here
-        File folder = new File("/var/tmp");
+        File folder = new File(path);
         File[] listOfFiles = folder.listFiles();
         List result = new ArrayList();
         for (File file : listOfFiles) {

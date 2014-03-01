@@ -47,21 +47,23 @@
 <div class="modal" id="filemanagerUploadFile" tabindex="-1" role="dialog" aria-labelledby="filemanagerUploadFileLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Загрузить файл</h4>
-            </div>
-            <div class="modal-body">
-                <form id="loadContent" action="api/fileupload/photo" method="post" enctype="multipart/form-data" target="contentFrame">
+            <form id="loadContent" action="api/fileupload" method="post" enctype="multipart/form-data" target="contentFrame">
+                <div class="modal-header">
+                    <h4 class="modal-title">Загрузить файл</h4>
+                </div>
+                <div class="modal-body">
+
                     <div class="input-group">
                         <input type="file" name="file" class="form-control" id="fileName">
 
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-success" id="contentLoad" type="submit">Загрузить</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Закрыть</button>
-            </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success" id="contentLoad" type="submit">Загрузить</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Закрыть</button>
+                </div>
+            </form>
         </div> <!--/.modal-content--> 
     </div> <!--/.modal-dialog--> 
 </div> <!--/.modal -->

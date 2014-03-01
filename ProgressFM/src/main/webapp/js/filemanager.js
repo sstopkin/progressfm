@@ -2,10 +2,12 @@ function  getFolderContent(path) {
     alert(path);
 }
 
-function getRootFolder() {
+function getFolderList(path) {
+    alert(parseFolderRevert(path))
     $.ajax({
-        type: "GET",
-        url: "api/fm/getroot",
+        type: "POST",
+        url: "api/fm/getfilelist",
+        data: {path: parseFolderRevert(path)},
         success: function(data) {
             $("#errorBlock").css("display", "none");
             var array = JSON.parse(data);
@@ -16,14 +18,17 @@ function getRootFolder() {
             str += "<th>Путь</th>";
             array.forEach(function(entry) {
                 str += "<tr>";
-                str += "<td><span class=\"glyphicon ";
+                str += "<td>";
                 if (entry.isFile) {
-                    str += "glyphicon-file";
+                    str += "<span class=\"glyphicon glyphicon-file\"></span> ";
+                    str += "<a href=\"/api/fm/getfile" + entry.path + "\">" + entry.name + "</a>"
                 }
                 else {
-                    str += "glyphicon-folder-open";
+                    str += "<span class=\"glyphicon glyphicon-folder-open\"></span> ";
+                    str += "<input onclick=\"getFolderList('" + parseFolder(entry.path) + "');\" type=\"button\" class=\"btn btn-default\" value=\"" + entry.name + "\"/>";
+                    str += "<\"></a>";
                 }
-                str += "\"></span> " + entry.name + "</td>";
+                str += "</td>";
                 str += "<td>" + entry.path + "</td>";
                 str += "</tr>";
             });
@@ -34,4 +39,12 @@ function getRootFolder() {
             return false;
         }
     });
+}
+
+function parseFolder(path) {
+    return path.replace(/\//g, ",");
+}
+
+function parseFolderRevert(path) {
+    return path.replace(/,/g, "\/").replace(/\"/g, "").replace(/ /g, "");
 }

@@ -69,7 +69,7 @@ public class UploadController {
 
     public String uploadFile(Session session, InputStream uploadInputStream, FormDataContentDisposition fileDetail) throws FileNotFoundException, IOException, CustomException {
         String filename = fileDetail.getFileName();
-        String type = filename.substring(filename.lastIndexOf('.') + 1);
+//        String type = filename.substring(filename.lastIndexOf('.') + 1);
         UUID newFileName = UUID.randomUUID();
 
         int read = 0;
@@ -80,7 +80,7 @@ public class UploadController {
             directory.mkdirs();
         }
         //fileDetail.getFileName())
-        OutputStream out = new FileOutputStream(new File(directory, newFileName.toString() + type));
+        OutputStream out = new FileOutputStream(new File(directory, filename));
         while ((read = uploadInputStream.read(bytes)) != -1) {
             out.write(bytes, 0, read);
         }
@@ -89,6 +89,6 @@ public class UploadController {
         out.close();
 
 //        apartamentsPhotoController.addApartamentPhoto(session, newFileName.toString(), "test", "1");
-        return "RESP: " + newFileName.toString() + "." + type;
+        return null;
     }
 }
