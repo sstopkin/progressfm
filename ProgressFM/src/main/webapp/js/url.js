@@ -100,22 +100,6 @@ function helpParseUrl(uri, arr, type) {
             getAnnouncementsViewPage(arr[2]);
             return;
         }
-        if ((arr[1] === "view") && (type === "apartaments")) {
-            if (!arr[2]) {
-                showDanger();
-                return;
-            }
-            getApartamentViewPage(arr[2]);
-            return;
-        }
-        if ((arr[1] === "edit") && (type === "apartaments")) {
-            if (!arr[2]) {
-                showDanger();
-                return;
-            }
-            apartamentsEditById(arr[2]);
-            return;
-        }
         if ((arr[1] === "list") && (type === "apartaments"))
         {
             getApartamentsListPage();
