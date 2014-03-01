@@ -15,8 +15,8 @@ import javax.ejb.Stateless;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 import org.hibernate.Session;
-import org.progress.crm.controllers.UploadController;
-import org.progress.crm.exceptions.CustomException;
+import org.progress.fm.controllers.UploadController;
+import org.progress.fm.exceptions.CustomException;
 import org.progress.fm.util.Command;
 import org.progress.fm.util.TransactionService;
 

@@ -23,7 +23,7 @@ public class ApplicationConfig extends Application {
      * resources defined in the project.
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
-//        resources.add(org.progress.fm.api.ReportGeneratorAPI.class);
+        resources.add(org.progress.fm.api.FileManagerApi.class);
         resources.add(org.progress.fm.api.ReportGeneratorAPI.class);
         resources.add(org.progress.fm.api.UploadFileServiceApi.class);
     }

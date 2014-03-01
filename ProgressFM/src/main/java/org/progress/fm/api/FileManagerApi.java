@@ -1,8 +1,9 @@
 package org.progress.fm.api;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import java.io.File;
 import java.sql.SQLException;
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.CookieParam;
 import javax.ws.rs.GET;
@@ -11,27 +12,27 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 import org.hibernate.Session;
-import org.progress.fm.controllers.ReportGeneratorController;
+import org.progress.fm.controllers.FileManagerController;
 import org.progress.fm.exceptions.CustomException;
 import org.progress.fm.util.Command;
 import org.progress.fm.util.TransactionService;
 
+/**
+ *
+ * @author best
+ */
 @Stateless
-@Path("report")
-public class ReportGeneratorAPI {
-
-    @EJB
-    ReportGeneratorController reportGeneratorController;
-
+@Path("fm")
+public class FileManagerApi {
     @GET
-    @Path("getprice")
-    @Produces("application/pdf")
-    public Response getPrice(@CookieParam("token") final String token) throws CustomException {
+    @Path("getroot")
+    public Response getRootFolderFileList(@CookieParam("token") final String token) throws CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
-                File f = reportGeneratorController.getPrice(session, token);
-                return ApiHelper.getResponse(f);
+                Gson rootFolderFileList = new GsonBuilder().create();
+                String result = rootFolderFileList.toJson(FileManagerController.getRootFolderFileList(session, token));
+                return ApiHelper.getResponse(result);
             }
         });
     }
@@ -44,8 +45,9 @@ public class ReportGeneratorAPI {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
-                File f = reportGeneratorController.getPriceByApartamentsId(session, token, apartamentId);
-                return ApiHelper.getResponse(f);
+//                File f = reportGeneratorController.getPriceByApartamentsId(session, token, apartamentId);
+//                return ApiHelper.getResponse(f);
+                return null;
             }
         });
     }

@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.concurrent.ExecutionException;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.progress.crm.exceptions.CustomException;
+import org.progress.fm.exceptions.CustomException;
 
 public final class TransactionService {
 

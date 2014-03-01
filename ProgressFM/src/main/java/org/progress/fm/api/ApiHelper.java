@@ -2,7 +2,7 @@ package org.progress.fm.api;
 
 import java.io.File;
 import javax.ws.rs.core.Response;
-import org.progress.crm.exceptions.BadRequestException;
+import org.progress.fm.exceptions.BadRequestException;
 
 public class ApiHelper {
 
