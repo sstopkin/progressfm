@@ -15,6 +15,12 @@ function getMainPage() {
     });
 }
 
+function getFileManager(){
+    $.get("fm.html", function(data) {
+        $("#mainContainer").html(data);
+    });
+}
+
 function showDanger(message) {
     $("#errorBlock").addClass("alert-danger");
     $("#errorMessage").html(message);
