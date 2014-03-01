@@ -5,11 +5,8 @@ import com.google.gson.GsonBuilder;
 import java.sql.SQLException;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.ws.rs.CookieParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 import org.hibernate.Session;
 import org.progress.fm.controllers.FileManagerController;
@@ -41,18 +38,16 @@ public class FileManagerApi {
         });
     }
 
-    @GET
-    @Path("root/{path}")
-    @Produces("application/*")
-    public Response getPriceByApartamentsId(@PathParam("id") final String apartamentId,
-            @CookieParam("token") final String token) throws CustomException {
-        return TransactionService.runInScope(new Command<Response>() {
-            @Override
-            public Response execute(Session session) throws CustomException, SQLException {
-//                File f = reportGeneratorController.getPriceByApartamentsId(session, token, apartamentId);
+//    @GET
+//    @Path("root/{path}")
+//    @Produces("application/pdf")
+//    public Response getPriceByApartamentsId(@PathParam("path") final String path) throws CustomException {
+//        return TransactionService.runInScope(new Command<Response>() {
+//            @Override
+//            public Response execute(Session session) throws CustomException, SQLException {
+//                File f = fileManagerController.getFileByPath(session, path);
 //                return ApiHelper.getResponse(f);
-                return null;
-            }
-        });
-    }
+//            }
+//        });
+//    }
 }
