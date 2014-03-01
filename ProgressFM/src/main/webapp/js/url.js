@@ -119,9 +119,3 @@ function get404Page(uri) {
         location.hash = "404";
     });
 }
-
-$(document).ready(function() {
-    $(window).bind('hashchange', function() {
-        parseUrl(location.hash);
-    });
-});

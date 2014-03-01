@@ -1,5 +1,8 @@
 $(document).ready(function() {
     parseUrl(location.href);
+    $(window).bind('hashchange', function() {
+        parseUrl(location.hash);
+    });
     $("#closeAlert").click(function() {
         $("#errorBlock").css("display", "none");
     });
@@ -15,7 +18,7 @@ function getMainPage() {
     });
 }
 
-function getFileManagerPage(){
+function getFileManagerPage() {
     $.get("fm.html", function(data) {
         $("#mainContainer").html(data);
     });

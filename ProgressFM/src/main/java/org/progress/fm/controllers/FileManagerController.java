@@ -12,7 +12,7 @@ import org.progress.fm.dao.DaoFactory;
 @Singleton
 public class FileManagerController {
 
-    public static List getRootFolderFileList(Session session) {
+    public List getRootFolderFileList(Session session) {
         return DaoFactory.getFileManagerDao().getRootFolderFileList(session);
     }
 }

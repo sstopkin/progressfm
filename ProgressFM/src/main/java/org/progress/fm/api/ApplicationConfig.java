@@ -11,7 +11,7 @@ public class ApplicationConfig extends Application {
     @Override
     public Set<Class<?>> getClasses() {
         Set<Class<?>> resources = new java.util.HashSet<Class<?>>();
-//        resources.add(UploadFileService.class);
+        resources.add(UploadFileServiceApi.class);
         resources.add(MultiPartFeature.class);
         addRestResourceClasses(resources);
         return resources;

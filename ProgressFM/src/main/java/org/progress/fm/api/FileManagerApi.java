@@ -3,6 +3,7 @@ package org.progress.fm.api;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.sql.SQLException;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.CookieParam;
 import javax.ws.rs.GET;
@@ -23,6 +24,10 @@ import org.progress.fm.util.TransactionService;
 @Stateless
 @Path("fm")
 public class FileManagerApi {
+
+    @EJB
+    FileManagerController fileManagerController;
+
     @GET
     @Path("getroot")
     public Response getRootFolderFileList() throws CustomException {
@@ -30,7 +35,7 @@ public class FileManagerApi {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
                 Gson rootFolderFileList = new GsonBuilder().create();
-                String result = rootFolderFileList.toJson(FileManagerController.getRootFolderFileList(session));
+                String result = rootFolderFileList.toJson(fileManagerController.getRootFolderFileList(session));
                 return ApiHelper.getResponse(result);
             }
         });

@@ -1,6 +1,7 @@
 package org.progress.fm.dao;
 
-import java.util.ArrayList;
+import java.io.File;
+import java.util.Arrays;
 import java.util.List;
 import org.hibernate.Session;
 
@@ -11,9 +12,6 @@ import org.hibernate.Session;
 public class FileManagerDao {
 
     public List getRootFolderFileList(Session session) {
-//        return fs.getId();
-        List l=new ArrayList();
-        l.add("asd");
-        return null;
+        return Arrays.asList(new File("/var/tmp").list());
     }
 }
