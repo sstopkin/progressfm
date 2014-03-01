@@ -13,10 +13,7 @@ import org.progress.fm.exceptions.IsNotAuthenticatedException;
 @Singleton
 public class FileManagerController {
 
-    public static List getRootFolderFileList(Session session, String token) throws IsNotAuthenticatedException {
-        if (token == null) {
-            throw new IsNotAuthenticatedException();
-        }
+    public static List getRootFolderFileList(Session session) {
         return DaoFactory.getFileManagerDao().getRootFolderFileList(session);
     }
 }

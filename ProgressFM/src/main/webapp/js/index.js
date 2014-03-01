@@ -15,7 +15,7 @@ function getMainPage() {
     });
 }
 
-function getFileManager(){
+function getFileManagerPage(){
     $.get("fm.html", function(data) {
         $("#mainContainer").html(data);
     });

@@ -2,7 +2,6 @@ package org.progress.fm.api;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import java.io.File;
 import java.sql.SQLException;
 import javax.ejb.Stateless;
 import javax.ws.rs.CookieParam;
@@ -26,20 +25,20 @@ import org.progress.fm.util.TransactionService;
 public class FileManagerApi {
     @GET
     @Path("getroot")
-    public Response getRootFolderFileList(@CookieParam("token") final String token) throws CustomException {
+    public Response getRootFolderFileList() throws CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
                 Gson rootFolderFileList = new GsonBuilder().create();
-                String result = rootFolderFileList.toJson(FileManagerController.getRootFolderFileList(session, token));
+                String result = rootFolderFileList.toJson(FileManagerController.getRootFolderFileList(session));
                 return ApiHelper.getResponse(result);
             }
         });
     }
 
     @GET
-    @Path("getapartamentsreport/{id}")
-    @Produces("application/pdf")
+    @Path("root/{path}")
+    @Produces("application/*")
     public Response getPriceByApartamentsId(@PathParam("id") final String apartamentId,
             @CookieParam("token") final String token) throws CustomException {
         return TransactionService.runInScope(new Command<Response>() {

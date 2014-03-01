@@ -18,12 +18,12 @@ function parseUrl(str) {
         'relative', 'path', 'directory', 'file', 'query', 'fragment'],
             ini = (this.php_js && this.php_js.ini) || {},
             mode = (ini['phpjs.parse_url.mode'] &&
-            ini['phpjs.parse_url.mode'].local_value) || 'php',
+                    ini['phpjs.parse_url.mode'].local_value) || 'php',
             parser = {
-        php: /^(?:([^:\/?#]+):)?(?:\/\/()(?:(?:()(?:([^:@]*):?([^:@]*))?@)?([^:\/?#]*)(?::(\d*))?))?()(?:(()(?:(?:[^?#\/]*\/)*)()(?:[^?#]*))(?:\?([^#]*))?(?:#(.*))?)/,
-        strict: /^(?:([^:\/?#]+):)?(?:\/\/((?:(([^:@]*):?([^:@]*))?@)?([^:\/?#]*)(?::(\d*))?))?((((?:[^?#\/]*\/)*)([^?#]*))(?:\?([^#]*))?(?:#(.*))?)/,
-        loose: /^(?:(?![^:@]+:[^:@\/]*@)([^:\/?#.]+):)?(?:\/\/\/?)?((?:(([^:@]*):?([^:@]*))?@)?([^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/ // Added one optional slash to post-scheme to catch file:/// (should restrict this)
-    };
+                php: /^(?:([^:\/?#]+):)?(?:\/\/()(?:(?:()(?:([^:@]*):?([^:@]*))?@)?([^:\/?#]*)(?::(\d*))?))?()(?:(()(?:(?:[^?#\/]*\/)*)()(?:[^?#]*))(?:\?([^#]*))?(?:#(.*))?)/,
+                strict: /^(?:([^:\/?#]+):)?(?:\/\/((?:(([^:@]*):?([^:@]*))?@)?([^:\/?#]*)(?::(\d*))?))?((((?:[^?#\/]*\/)*)([^?#]*))(?:\?([^#]*))?(?:#(.*))?)/,
+                loose: /^(?:(?![^:@]+:[^:@\/]*@)([^:\/?#.]+):)?(?:\/\/\/?)?((?:(([^:@]*):?([^:@]*))?@)?([^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/ // Added one optional slash to post-scheme to catch file:/// (should restrict this)
+            };
 
     var m = parser[mode].exec(str),
             uri = {},
@@ -47,15 +47,7 @@ function parseUrl(str) {
     }
     delete uri.source;
 //    ##################
-    var pathAnnouncementsRent = "announcementsrent";
-    var pathCustomersRent = "customersrent";
-    var pathAnnouncements = "announcements";
-    var pathAbout = "about";
-    var pathCustomers = "customers";
-    var pathHelpDesk = "helpdesk";
-    var pathProfile = "profile";
-    var pathApartaments = "apartaments";
-    var pathAdmin = "admin";
+    var pathFileManager = "fm";
 
     if (!uri.fragment) {
         getMainPage();
@@ -67,47 +59,12 @@ function parseUrl(str) {
         return;
     }
 
-    if (arr[0] === pathAnnouncementsRent) {
-        helpParseUrl(uri, arr, "announcementsrent");
+    if (arr[0] === pathFileManager) {
+        helpParseUrl(uri, arr, "fm");
+        getFileManagerPage();
         return;
     }
 
-    if (arr[0] === pathAnnouncements) {
-        helpParseUrl(uri, arr, "announcements");
-        return;
-    }
-
-    if (arr[0] === pathCustomersRent) {
-        helpParseUrl(uri, arr, "customersrent");
-        return;
-    }
-
-    if (arr[0] === pathAbout) {
-        getAboutPage();
-        return;
-    }
-
-    if (arr[0] === pathHelpDesk) {
-        getHelpDeskPage();
-        return;
-    }
-
-    if (arr[0] === pathCustomers) {
-        getCustomersPage();
-        return;
-    }
-    if (arr[0] === pathProfile) {
-        getProfilePage();
-        return;
-    }
-    if (arr[0] === pathApartaments) {
-        helpParseUrl(uri, arr, "apartaments");
-        return;
-    }
-    if (arr[0] === pathAdmin) {
-        getAdminPage();
-        return;
-    }
     get404Page();
 //    ##################
 }
@@ -192,7 +149,6 @@ $(document).ready(function() {
     $(window).bind('hashchange', function() {
         $('#ajaxProgress').css('display', 'none');
         $("#errorBlock").css("display", "none");
-        checkStatus();
         parseUrl(location.hash);
     });
 });
