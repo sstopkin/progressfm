@@ -18,8 +18,6 @@ import org.progress.fm.exceptions.CustomException;
 @Singleton
 public class UploadController {
 
-    private final String UPLOAD_FILE_LOCATION = "/tmp";
-
     public String getUploadedFileContent(Session session, InputStream uploadedInputStream,
             FormDataContentDisposition fileDetail) throws IOException, CustomException {
         if (uploadedInputStream == null || fileDetail == null) {
@@ -67,7 +65,8 @@ public class UploadController {
         return content;
     }
 
-    public String uploadFile(Session session, InputStream uploadInputStream, FormDataContentDisposition fileDetail) throws FileNotFoundException, IOException, CustomException {
+    public String uploadFile(Session session, InputStream uploadInputStream, FormDataContentDisposition fileDetail,
+            String path) throws FileNotFoundException, IOException, CustomException {
         String filename = fileDetail.getFileName();
 //        String type = filename.substring(filename.lastIndexOf('.') + 1);
         UUID newFileName = UUID.randomUUID();
@@ -75,7 +74,7 @@ public class UploadController {
         int read = 0;
         byte[] bytes = new byte[1024];
 
-        File directory = new File(UPLOAD_FILE_LOCATION);
+        File directory = new File(path);
         if (!directory.exists()) {
             directory.mkdirs();
         }

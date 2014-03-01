@@ -31,12 +31,13 @@ public class UploadFileServiceApi {
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     public Response uploadBinaryFile(
             @FormDataParam("file") final InputStream uploadedInputStream,
-            @FormDataParam("file") final FormDataContentDisposition fileDetail)
+            @FormDataParam("file") final FormDataContentDisposition fileDetail,
+            @FormDataParam("path") final String path)
             throws CharacterCodingException, IOException, FileNotFoundException, CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws CustomException, SQLException, FileNotFoundException, IOException {
-                String resp = uploadController.uploadFile(session, uploadedInputStream, fileDetail);
+                String resp = uploadController.uploadFile(session, uploadedInputStream, fileDetail, path);
                 return ApiHelper.getResponse(resp);
             }
         });
