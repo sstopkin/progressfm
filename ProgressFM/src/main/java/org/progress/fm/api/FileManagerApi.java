@@ -58,7 +58,7 @@ public class FileManagerApi {
 
     @POST
     @Path("remove")
-    public Response removeFile(@FormParam("path") final String path) throws CustomException {
+    public Response removeFile(@FormParam("data") final String path) throws CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {

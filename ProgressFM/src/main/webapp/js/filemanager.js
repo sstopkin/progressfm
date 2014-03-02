@@ -30,6 +30,13 @@ function mkDir() {
     });
 }
 
+function getUpFolder(){
+    var basePath = $('#mainFileManagerFullPathLabel').text();
+    var a=basePath.split('/');
+    a.splice(-1,1);
+    getFolderList(a.toString());
+}
+
 function getHomeFolder() {
     $.ajax({
         type: "GET",
@@ -115,14 +122,14 @@ function selectCheckboxClick(object) {
 }
 
 function deleteSelectedFiles() {
+    var basePath=$('#mainFileManagerFullPathLabel').text();
     $.ajax({
         type: "POST",
         url: "api/fm/remove",
-        data: {data: JSON.stringify(selected_files)},
+        data: {data: selected_files.toString()},
         success: function() {
             getFolderList(parseFolder(basePath));
             selected_files = [];
-            getFolderList($('#mainFileManagerFullPathLabel').text());
         },
         error: function(data) {
             showDanger(data.responseText);

@@ -1,11 +1,16 @@
 package org.progress.fm.dao;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.hibernate.Session;
 
 /**
@@ -30,8 +35,35 @@ public class FileManagerDao {
     }
 
     public boolean removeFile(Session session, String path) {
-        System.out.println(path);
+        String[] parts = path.replaceAll("\"", "").split(",");
+        List<String> wordList = Arrays.asList(parts);
+        for (String f : wordList) {
+            File file = new File(f);
+            if (file.isDirectory()) {
+                try {
+                    delete(file);
+                } catch (IOException ex) {
+                    Logger.getLogger(FileManagerDao.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                if (file.delete()) {
+                    System.out.println(file.getName() + " is deleted!");
+                } else {
+                    System.out.println("Delete operation is failed.");
+                }
+            }
+        }
         return true;
+    }
+
+    void delete(File f) throws IOException {
+        if (f.isDirectory()) {
+            for (File c : f.listFiles()) {
+                delete(c);
+            }
+        }
+        if (!f.delete()) {
+            throw new FileNotFoundException("Failed to delete file: " + f);
+        }
     }
 
     class CustomFile {
