@@ -4,16 +4,16 @@
     <p>&nbsp;</p>
     <div class="btn-toolbar" role="toolbar" id="buttons">
         <div class="btn-group" id="navigation">
-            <button type="button" class="btn btn-default" id="home"><span class="glyphicon glyphicon-home" title="Корневая директория"></span></button>
-            <button type="button" class="btn btn-default" id="back"><span class="glyphicon glyphicon-arrow-left" title="Назад"></span></button>
-            <button type="button" class="btn btn-default" id="up"><span class="glyphicon glyphicon-arrow-up" title="Вверх"></span></button>
-            <button type="button" class="btn btn-default" id="forward"><span class="glyphicon glyphicon-arrow-right" title="Вперёд"></span></button>
-            <button type="button" class="btn btn-default" id="reload"><span class="glyphicon glyphicon-refresh" title="Обновить"></span></button>
+            <button type="button" class="btn btn-default" id="home" onclick="getHomeFolder()"><span class="glyphicon glyphicon-home" title="Корневая директория"></span></button>
+            <!--            <button type="button" class="btn btn-default" id="back"><span class="glyphicon glyphicon-arrow-left" title="Назад"></span></button>
+                        <button type="button" class="btn btn-default" id="up"><span class="glyphicon glyphicon-arrow-up" title="Вверх"></span></button>
+                        <button type="button" class="btn btn-default" id="forward"><span class="glyphicon glyphicon-arrow-right" title="Вперёд"></span></button>-->
+            <button type="button" class="btn btn-default" id="reload" onclick="refreshFileList()"><span class="glyphicon glyphicon-refresh" title="Обновить"></span></button>
         </div>
         <div class="btn-group" id="actions">
             <button type="button" class="btn btn-default" id="diradd"><span class="glyphicon glyphicon-folder-close" title="Создать директорию"></span></button>
             <a data-toggle="modal" href="#filemanagerUploadFile" class="btn btn-default"><span class="glyphicon glyphicon-cloud-upload" title="Загрузить на сервер"></span></a>
-            <button type="button" class="btn btn-default" id="download"><span class="glyphicon glyphicon-cloud-download" title="Скачать на компьютер"></span></button>        
+            <!--            <button type="button" class="btn btn-default" id="download"><span class="glyphicon glyphicon-cloud-download" title="Скачать на компьютер"></span></button>        -->
         </div>
         <div class="btn-group" id="actions2">
             <button type="button" class="btn btn-default" id="remove"><span class="glyphicon glyphicon-trash" title="Удалить!"></span></button>        
@@ -30,7 +30,10 @@
     </div>
 </div>
 
-<div class="container" id="mainFileManagerContainer"></div>
+<div class="container" id="mainFileManagerContainer">
+    <label id="mainFileManagerFullPathLabel" class="control-label"></label>
+    <div id="mainFileManagerFileList"></div>
+</div>
 
 <!-- Modal -->
 <div class="modal" id="filemanagerUploadFile" tabindex="-1" role="dialog" aria-labelledby="filemanagerUploadFileLabel" aria-hidden="true">

@@ -19,6 +19,12 @@ public class FileManagerDao {
         return result;
     }
 
+    public List getHomeFolder(Session session) {
+        List res=new ArrayList();
+        res.add("/tmp");
+        return res;
+    }
+
     class CustomFile {
 
         private final String name;

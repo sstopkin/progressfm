@@ -44,6 +44,19 @@ public class FileManagerApi {
     }
 
     @GET
+    @Path("gethome")
+    public Response getFolderFileList() throws CustomException {
+        return TransactionService.runInScope(new Command<Response>() {
+            @Override
+            public Response execute(Session session) throws CustomException, SQLException {
+                Gson rootFolderFileList = new GsonBuilder().create();
+                String result = rootFolderFileList.toJson(fileManagerController.getHomeFolder(session));
+                return ApiHelper.getResponse(result);
+            }
+        });
+    }
+
+    @GET
     @Path("getfile/{path:.*}")
     @Produces("application/force-download")
     public Response getPriceByApartamentsId(@PathParam("path") final String path) throws CustomException {

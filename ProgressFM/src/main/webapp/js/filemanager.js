@@ -1,14 +1,28 @@
-function  getFolderContent(path) {
-    alert(path);
+function  getHomeFolder() {
+    $.ajax({
+        type: "GET",
+        url: "api/fm/gethome",
+        success: function(data) {
+            getFolderList(parseFolder(JSON.parse(data)[0]));
+        },
+        error: function(data) {
+            showDanger(data.responseText);
+            return false;
+        }
+    });
+}
+
+function refreshFileList(){
+    getFolderList($('#mainFileManagerFullPathLabel').text());
 }
 
 function getFolderList(path) {
-    alert(parseFolderRevert(path))
     $.ajax({
         type: "POST",
         url: "api/fm/getfilelist",
         data: {path: parseFolderRevert(path)},
         success: function(data) {
+            $('#mainFileManagerFullPathLabel').text(parseFolderRevert(path));
             $("#errorBlock").css("display", "none");
             var array = JSON.parse(data);
             var str = "<table class=\"table table-bordered\">";
@@ -38,7 +52,7 @@ function getFolderList(path) {
                 str += "<td>" + entry.path + "</td>";
                 str += "</tr>";
             });
-            $("#mainFileManagerContainer").html(str);
+            $("#mainFileManagerFileList").html(str);
         },
         error: function(data) {
             showDanger(data.responseText);

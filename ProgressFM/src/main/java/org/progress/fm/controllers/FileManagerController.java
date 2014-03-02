@@ -20,4 +20,8 @@ public class FileManagerController {
     public File getFileByPath(Session session, String path) {
         return DaoFactory.getFileManagerDao().getFileByPath(session, path);
     }
+
+    public Object getHomeFolder(Session session) {
+        return DaoFactory.getFileManagerDao().getHomeFolder(session);
+    }
 }
