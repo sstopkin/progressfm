@@ -10,6 +10,12 @@ $(document).ready(function() {
         $("#helpInfoBlock").css("display", "none");
         $('#taskContentHelp').addClass("hiddenHelp");
     });
+    $(".file-select").click(function () {
+        selectCheckboxClick(this);
+    });
+    $("#remove").click(function () {
+       deleteSelectedFiles();
+    });
 });
 
 function getMainPage() {

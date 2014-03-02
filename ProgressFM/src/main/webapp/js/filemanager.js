@@ -1,15 +1,20 @@
-function  getHomeFolder() {
-    $.ajax({
-        type: "GET",
-        url: "api/fm/gethome",
-        success: function(data) {
-            getFolderList(parseFolder(JSON.parse(data)[0]));
-        },
-        error: function(data) {
-            showDanger(data.responseText);
-            return false;
-        }
-    });
+var selected_files = []
+
+/* Utility-functions */
+
+function searchAndRemove(array, elt) {
+  for (var i=array.length-1; i>=0; i--) {
+    if (array[i] === elt) {
+      array.splice(i, 1);
+    }
+  }
+}
+
+
+/* Actual code */
+
+function  getFolderContent(path) {
+    alert(path);
 }
 
 function refreshFileList(){
@@ -59,6 +64,31 @@ function getFolderList(path) {
             return false;
         }
     });
+}
+
+function selectFile(object) {
+  selected_files.push($(object).attr("id"))
+}
+
+function deselectFile(object) {
+  searchAndRemove(selected_files, $(object).attr("id"))
+}
+
+function selectCheckboxClick(object) {
+  if ($.inArray($(object).attr("id"), selected_files) === -1) {
+    selectFile(object);
+  } else
+  {
+    deselectFile(object);
+  }
+}
+
+function deleteSelectedFiles() {
+    $.post("api/fm/delete", JSON.stringify(selected_files),
+        (function () { 
+          getFolderList($('#mainFileManagerFullPathLabel').text());
+          selected_files = [];
+        }));
 }
 
 function parseFolder(path) {
