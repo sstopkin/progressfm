@@ -24,4 +24,12 @@ public class FileManagerController {
     public Object getHomeFolder(Session session) {
         return DaoFactory.getFileManagerDao().getHomeFolder(session);
     }
+
+    public Object mkDir(Session session, String path) {
+        return DaoFactory.getFileManagerDao().mkDir(session, path);
+    }
+
+    public Object removeFile(Session session, String path) {
+        return DaoFactory.getFileManagerDao().removeFile(session, path);
+    }
 }

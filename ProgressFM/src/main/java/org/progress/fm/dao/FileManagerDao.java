@@ -20,9 +20,18 @@ public class FileManagerDao {
     }
 
     public List getHomeFolder(Session session) {
-        List res=new ArrayList();
+        List res = new ArrayList();
         res.add("/tmp");
         return res;
+    }
+
+    public boolean mkDir(Session session, String path) {
+        return (new File(path)).mkdir();
+    }
+
+    public boolean removeFile(Session session, String path) {
+        System.out.println(path);
+        return true;
     }
 
     class CustomFile {

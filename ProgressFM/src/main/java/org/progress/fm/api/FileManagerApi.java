@@ -36,8 +36,34 @@ public class FileManagerApi {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
-                Gson rootFolderFileList = new GsonBuilder().create();
-                String result = rootFolderFileList.toJson(fileManagerController.getRootFolderFileList(session, path));
+                Gson responce = new GsonBuilder().create();
+                String result = responce.toJson(fileManagerController.getRootFolderFileList(session, path));
+                return ApiHelper.getResponse(result);
+            }
+        });
+    }
+
+    @POST
+    @Path("mkdir")
+    public Response mkDir(@FormParam("path") final String path) throws CustomException {
+        return TransactionService.runInScope(new Command<Response>() {
+            @Override
+            public Response execute(Session session) throws CustomException, SQLException {
+                Gson responce = new GsonBuilder().create();
+                String result = responce.toJson(fileManagerController.mkDir(session, path));
+                return ApiHelper.getResponse(result);
+            }
+        });
+    }
+
+    @POST
+    @Path("remove")
+    public Response removeFile(@FormParam("path") final String path) throws CustomException {
+        return TransactionService.runInScope(new Command<Response>() {
+            @Override
+            public Response execute(Session session) throws CustomException, SQLException {
+                Gson responce = new GsonBuilder().create();
+                String result = responce.toJson(fileManagerController.removeFile(session, path));
                 return ApiHelper.getResponse(result);
             }
         });

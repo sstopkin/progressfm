@@ -1,24 +1,37 @@
 var selected_files = []
 
-/* Utility-functions */
-
 function searchAndRemove(array, elt) {
-  for (var i=array.length-1; i>=0; i--) {
-    if (array[i] === elt) {
-      array.splice(i, 1);
+    for (var i = array.length - 1; i >= 0; i--) {
+        if (array[i] === elt) {
+            array.splice(i, 1);
+        }
     }
-  }
 }
-
-
-/* Actual code */
 
 function  getFolderContent(path) {
     alert(path);
 }
 
-function refreshFileList(){
+function refreshFileList() {
     getFolderList($('#mainFileManagerFullPathLabel').text());
+}
+
+function mkDir() {
+    var basePath = $('#mainFileManagerFullPathLabel').text();
+    var newFolderName = $('#mainFileManagerNewPathName').val();
+    $('#filemanagerCreateFolder').modal('hide');
+    $.ajax({
+        type: "POST",
+        url: "api/fm/mkdir",
+        data: {path: basePath + "/" + newFolderName},
+        success: function(data) {
+            getFolderList(parseFolder(basePath));
+        },
+        error: function(data) {
+            showDanger(data.responseText);
+            return false;
+        }
+    });
 }
 
 function getFolderList(path) {
@@ -33,12 +46,14 @@ function getFolderList(path) {
             var str = "<table class=\"table table-bordered\">";
             str += "<thead>";
             str += "<tr>";
+            str += "<th></th>";
             str += "<th>Имя</th>";
             str += "<th>Размер</th>";
             str += "<th>Дата</th>";
             str += "<th>Путь</th>";
             array.forEach(function(entry) {
                 str += "<tr>";
+                str += "<td>" + "<input type=\"checkbox\" class=\"file-select\" id=\"" + entry.path + "\">" + "</td>";
                 if (entry.isFile) {
                     str += "<td>";
                     str += "<span class=\"glyphicon glyphicon-file\"></span> ";
@@ -58,6 +73,12 @@ function getFolderList(path) {
                 str += "</tr>";
             });
             $("#mainFileManagerFileList").html(str);
+            $(".file-select").click(function() {
+                selectCheckboxClick(this);
+            });
+            $("#remove").click(function() {
+                deleteSelectedFiles();
+            });
         },
         error: function(data) {
             showDanger(data.responseText);
@@ -67,28 +88,37 @@ function getFolderList(path) {
 }
 
 function selectFile(object) {
-  selected_files.push($(object).attr("id"))
+    selected_files.push($(object).attr("id"))
 }
 
 function deselectFile(object) {
-  searchAndRemove(selected_files, $(object).attr("id"))
+    searchAndRemove(selected_files, $(object).attr("id"))
 }
 
 function selectCheckboxClick(object) {
-  if ($.inArray($(object).attr("id"), selected_files) === -1) {
-    selectFile(object);
-  } else
-  {
-    deselectFile(object);
-  }
+    if ($.inArray($(object).attr("id"), selected_files) === -1) {
+        selectFile(object);
+    } else
+    {
+        deselectFile(object);
+    }
 }
 
 function deleteSelectedFiles() {
-    $.post("api/fm/delete", JSON.stringify(selected_files),
-        (function () { 
-          getFolderList($('#mainFileManagerFullPathLabel').text());
-          selected_files = [];
-        }));
+    $.ajax({
+        type: "POST",
+        url: "api/fm/remove",
+        data: {data: JSON.stringify(selected_files)},
+        success: function() {
+            getFolderList(parseFolder(basePath));
+            selected_files = [];
+            getFolderList($('#mainFileManagerFullPathLabel').text());
+        },
+        error: function(data) {
+            showDanger(data.responseText);
+            return false;
+        }
+    });
 }
 
 function parseFolder(path) {

@@ -11,7 +11,7 @@
             <button type="button" class="btn btn-default" id="reload" onclick="refreshFileList()"><span class="glyphicon glyphicon-refresh" title="Обновить"></span></button>
         </div>
         <div class="btn-group" id="actions">
-            <button type="button" class="btn btn-default" id="diradd"><span class="glyphicon glyphicon-folder-close" title="Создать директорию"></span></button>
+            <a data-toggle="modal" href="#filemanagerCreateFolder" class="btn btn-default"><span class="glyphicon glyphicon-folder-close" title="Создать директорию"></span></a>
             <a data-toggle="modal" href="#filemanagerUploadFile" class="btn btn-default"><span class="glyphicon glyphicon-cloud-upload" title="Загрузить на сервер"></span></a>
             <!--            <button type="button" class="btn btn-default" id="download"><span class="glyphicon glyphicon-cloud-download" title="Скачать на компьютер"></span></button>        -->
         </div>
@@ -34,7 +34,6 @@
     <label id="mainFileManagerFullPathLabel" class="control-label"></label>
     <div id="mainFileManagerFileList"></div>
 </div>
-
 <!-- Modal -->
 <div class="modal" id="filemanagerUploadFile" tabindex="-1" role="dialog" aria-labelledby="filemanagerUploadFileLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -60,6 +59,27 @@
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Закрыть</button>
                 </div>
             </form>
+        </div> <!--/.modal-content--> 
+    </div> <!--/.modal-dialog--> 
+</div> <!--/.modal -->
+
+<!-- Modal -->
+<div class="modal" id="filemanagerCreateFolder" tabindex="-1" role="dialog" aria-labelledby="filemanagerCreateFolderLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Создать папку</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="control-label">Имя папки</label>
+                    <input id="mainFileManagerNewPathName" type="text" class="form-control">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" id="filemanagerCreateFolderSubmit" onclick="mkDir()">Создать</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Закрыть</button>
+            </div>
         </div> <!--/.modal-content--> 
     </div> <!--/.modal-dialog--> 
 </div> <!--/.modal -->
