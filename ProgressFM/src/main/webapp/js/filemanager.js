@@ -15,20 +15,26 @@ function getFolderList(path) {
             str += "<thead>";
             str += "<tr>";
             str += "<th>Имя</th>";
+            str += "<th>Размер</th>";
+            str += "<th>Дата</th>";
             str += "<th>Путь</th>";
             array.forEach(function(entry) {
                 str += "<tr>";
-                str += "<td>";
                 if (entry.isFile) {
+                    str += "<td>";
                     str += "<span class=\"glyphicon glyphicon-file\"></span> ";
                     str += "<a href=\"/api/fm/getfile" + entry.path + "\">" + entry.name + "</a>"
+                    str += "</td>";
+                    str += "<td>" + entry.size + "</td>";
                 }
                 else {
+                    str += "<td>";
                     str += "<span class=\"glyphicon glyphicon-folder-open\"></span> ";
-                    str += "<input onclick=\"getFolderList('" + parseFolder(entry.path) + "');\" type=\"button\" class=\"btn btn-default\" value=\"" + entry.name + "\"/>";
-                    str += "<\"></a>";
+                    str += "<a onclick=\"getFolderList('" + parseFolder(entry.path) + "');\" value=\"" + entry.name + "\">" + entry.name + "</a>";
+                    str += "</td>";
+                    str += "<td></td>";
                 }
-                str += "</td>";
+                str += "<td>" + entry.modifyTime + "</td>";
                 str += "<td>" + entry.path + "</td>";
                 str += "</tr>";
             });
