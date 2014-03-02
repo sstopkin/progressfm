@@ -8,10 +8,6 @@ function searchAndRemove(array, elt) {
     }
 }
 
-function  getFolderContent(path) {
-    alert(path);
-}
-
 function refreshFileList() {
     getFolderList($('#mainFileManagerFullPathLabel').text());
 }
@@ -26,6 +22,20 @@ function mkDir() {
         data: {path: basePath + "/" + newFolderName},
         success: function(data) {
             getFolderList(parseFolder(basePath));
+        },
+        error: function(data) {
+            showDanger(data.responseText);
+            return false;
+        }
+    });
+}
+
+function getHomeFolder() {
+    $.ajax({
+        type: "GET",
+        url: "api/fm/gethome",
+        success: function(data) {
+            getFolderList(parseFolder(JSON.parse(data)[0]));
         },
         error: function(data) {
             showDanger(data.responseText);
