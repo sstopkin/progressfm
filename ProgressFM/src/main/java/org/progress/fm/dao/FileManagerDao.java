@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.hibernate.Session;
 
 /**
  *
@@ -19,22 +18,22 @@ import org.hibernate.Session;
  */
 public class FileManagerDao {
 
-    public File getFileByPath(Session session, String path) {
+    public File getFileByPath(String path) {
         File result = new File("//" + path);
         return result;
     }
 
-    public List getHomeFolder(Session session) {
+    public List getHomeFolder() {
         List res = new ArrayList();
         res.add("/tmp");
         return res;
     }
 
-    public boolean mkDir(Session session, String path) {
+    public boolean mkDir(String path) {
         return (new File(path)).mkdir();
     }
 
-    public boolean removeFile(Session session, String path) {
+    public boolean removeFile(String path) {
         String[] parts = path.replaceAll("\"", "").split(",");
         List<String> wordList = Arrays.asList(parts);
         for (String f : wordList) {
@@ -83,7 +82,7 @@ public class FileManagerDao {
         }
     }
 
-    public List getFolderFileList(Session session, String path) {
+    public List getFolderFileList(String path) {
         // Directory path here
         File folder = new File(path);
         File[] listOfFiles = folder.listFiles();

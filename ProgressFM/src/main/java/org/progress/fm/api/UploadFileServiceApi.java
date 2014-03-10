@@ -9,16 +9,12 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.FileNotFoundException;
 import java.nio.charset.CharacterCodingException;
-import java.sql.SQLException;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
-import org.hibernate.Session;
 import org.progress.fm.controllers.UploadController;
 import org.progress.fm.exceptions.CustomException;
-import org.progress.fm.util.Command;
-import org.progress.fm.util.TransactionService;
 
 @Stateless
 @Path("fileupload")
@@ -34,12 +30,7 @@ public class UploadFileServiceApi {
             @FormDataParam("file") final FormDataContentDisposition fileDetail,
             @FormDataParam("path") final String path)
             throws CharacterCodingException, IOException, FileNotFoundException, CustomException {
-        return TransactionService.runInScope(new Command<Response>() {
-            @Override
-            public Response execute(Session session) throws CustomException, SQLException, FileNotFoundException, IOException {
-                String resp = uploadController.uploadFile(session, uploadedInputStream, fileDetail, path);
-                return ApiHelper.getResponse(resp);
-            }
-        });
+        String resp = uploadController.uploadFile(uploadedInputStream, fileDetail, path);
+        return ApiHelper.getResponse(resp);
     }
 }

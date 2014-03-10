@@ -3,7 +3,6 @@ package org.progress.fm.api;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.io.File;
-import java.sql.SQLException;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.FormParam;
@@ -13,11 +12,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
-import org.hibernate.Session;
 import org.progress.fm.controllers.FileManagerController;
 import org.progress.fm.exceptions.CustomException;
-import org.progress.fm.util.Command;
-import org.progress.fm.util.TransactionService;
 
 /**
  *
@@ -33,65 +29,42 @@ public class FileManagerApi {
     @POST
     @Path("getfilelist")
     public Response getFolderFileList(@FormParam("path") final String path) throws CustomException {
-        return TransactionService.runInScope(new Command<Response>() {
-            @Override
-            public Response execute(Session session) throws CustomException, SQLException {
-                Gson responce = new GsonBuilder().create();
-                String result = responce.toJson(fileManagerController.getRootFolderFileList(session, path));
-                return ApiHelper.getResponse(result);
-            }
-        });
+        Gson responce = new GsonBuilder().create();
+        String result = responce.toJson(fileManagerController.getRootFolderFileList(path));
+        return ApiHelper.getResponse(result);
     }
 
     @POST
     @Path("mkdir")
-    public Response mkDir(@FormParam("path") final String path) throws CustomException {
-        return TransactionService.runInScope(new Command<Response>() {
-            @Override
-            public Response execute(Session session) throws CustomException, SQLException {
-                Gson responce = new GsonBuilder().create();
-                String result = responce.toJson(fileManagerController.mkDir(session, path));
-                return ApiHelper.getResponse(result);
-            }
-        });
+    public Response mkDir(@FormParam("path")
+            final String path) throws CustomException {
+        Gson responce = new GsonBuilder().create();
+        String result = responce.toJson(fileManagerController.mkDir(path));
+        return ApiHelper.getResponse(result);
     }
 
     @POST
     @Path("remove")
-    public Response removeFile(@FormParam("data") final String path) throws CustomException {
-        return TransactionService.runInScope(new Command<Response>() {
-            @Override
-            public Response execute(Session session) throws CustomException, SQLException {
-                Gson responce = new GsonBuilder().create();
-                String result = responce.toJson(fileManagerController.removeFile(session, path));
-                return ApiHelper.getResponse(result);
-            }
-        });
+    public Response removeFile(@FormParam("data")
+            final String path) throws CustomException {
+        Gson responce = new GsonBuilder().create();
+        String result = responce.toJson(fileManagerController.removeFile(path));
+        return ApiHelper.getResponse(result);
     }
 
     @GET
     @Path("gethome")
     public Response getFolderFileList() throws CustomException {
-        return TransactionService.runInScope(new Command<Response>() {
-            @Override
-            public Response execute(Session session) throws CustomException, SQLException {
-                Gson rootFolderFileList = new GsonBuilder().create();
-                String result = rootFolderFileList.toJson(fileManagerController.getHomeFolder(session));
-                return ApiHelper.getResponse(result);
-            }
-        });
+        Gson rootFolderFileList = new GsonBuilder().create();
+        String result = rootFolderFileList.toJson(fileManagerController.getHomeFolder());
+        return ApiHelper.getResponse(result);
     }
 
     @GET
     @Path("getfile/{path:.*}")
     @Produces("application/force-download")
-    public Response getPriceByApartamentsId(@PathParam("path") final String path) throws CustomException {
-        return TransactionService.runInScope(new Command<Response>() {
-            @Override
-            public Response execute(Session session) throws CustomException, SQLException {
-                File f = fileManagerController.getFileByPath(session, path);
-                return ApiHelper.getResponse(f);
-            }
-        });
+    public Response getPriceByApartamentsId(@PathParam("path") String path) {
+        File f = fileManagerController.getFileByPath(path);
+        return ApiHelper.getResponse(f);
     }
 }

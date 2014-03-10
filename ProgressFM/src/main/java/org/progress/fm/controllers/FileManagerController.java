@@ -3,7 +3,6 @@ package org.progress.fm.controllers;
 import java.io.File;
 import java.util.List;
 import javax.ejb.Singleton;
-import org.hibernate.Session;
 import org.progress.fm.dao.DaoFactory;
 
 /**
@@ -13,23 +12,23 @@ import org.progress.fm.dao.DaoFactory;
 @Singleton
 public class FileManagerController {
 
-    public List getRootFolderFileList(Session session, String path) {
-        return DaoFactory.getFileManagerDao().getFolderFileList(session, path);
+    public List getRootFolderFileList(String path) {
+        return DaoFactory.getFileManagerDao().getFolderFileList(path);
     }
 
-    public File getFileByPath(Session session, String path) {
-        return DaoFactory.getFileManagerDao().getFileByPath(session, path);
+    public File getFileByPath(String path) {
+        return DaoFactory.getFileManagerDao().getFileByPath(path);
     }
 
-    public Object getHomeFolder(Session session) {
-        return DaoFactory.getFileManagerDao().getHomeFolder(session);
+    public Object getHomeFolder() {
+        return DaoFactory.getFileManagerDao().getHomeFolder();
     }
 
-    public Object mkDir(Session session, String path) {
-        return DaoFactory.getFileManagerDao().mkDir(session, path);
+    public Object mkDir(String path) {
+        return DaoFactory.getFileManagerDao().mkDir(path);
     }
 
-    public Object removeFile(Session session, String path) {
-        return DaoFactory.getFileManagerDao().removeFile(session, path);
+    public Object removeFile(String path) {
+        return DaoFactory.getFileManagerDao().removeFile(path);
     }
 }

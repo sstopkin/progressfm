@@ -10,7 +10,6 @@ import java.io.OutputStream;
 import java.util.UUID;
 import javax.ejb.Singleton;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
-import org.hibernate.Session;
 import org.progress.fm.exceptions.BadFileFormatException;
 import org.progress.fm.exceptions.BadRequestException;
 import org.progress.fm.exceptions.CustomException;
@@ -18,7 +17,7 @@ import org.progress.fm.exceptions.CustomException;
 @Singleton
 public class UploadController {
 
-    public String getUploadedFileContent(Session session, InputStream uploadedInputStream,
+    public String getUploadedFileContent(InputStream uploadedInputStream,
             FormDataContentDisposition fileDetail) throws IOException, CustomException {
         if (uploadedInputStream == null || fileDetail == null) {
             throw new BadRequestException();
@@ -65,7 +64,7 @@ public class UploadController {
         return content;
     }
 
-    public String uploadFile(Session session, InputStream uploadInputStream, FormDataContentDisposition fileDetail,
+    public String uploadFile(InputStream uploadInputStream, FormDataContentDisposition fileDetail,
             String path) throws FileNotFoundException, IOException, CustomException {
         String filename = fileDetail.getFileName();
 //        String type = filename.substring(filename.lastIndexOf('.') + 1);
