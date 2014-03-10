@@ -59,7 +59,7 @@ function getFolderList(path) {
         data: {path: parseFolderRevert(path)},
         success: function(data) {
             mainFullPath = parseFolderRevert(path);
-            $('#mainFileManagerFullPathLabel').text(mainFullPath);
+            generateFullPathBreadcrumb(path);
             $("#errorBlock").css("display", "none");
             var array = JSON.parse(data);
             var str = "<table class=\"table table-bordered\">";
@@ -107,7 +107,7 @@ function getFolderList(path) {
 }
 
 function selectFile(object) {
-    selected_files.push($(object).attr("id"))
+    selected_files.push($(object).attr("id"));
 }
 
 function deselectFile(object) {
@@ -146,4 +146,13 @@ function parseFolder(path) {
 
 function parseFolderRevert(path) {
     return path.replace(/,/g, "\/").replace(/\"/g, "").replace(/ /g, "");
+}
+
+function generateFullPathBreadcrumb(path){
+//    $('#mainFileManagerFullPathLabel').text(mainFullPath);
+//    <ol class="breadcrumb">
+//                <li><a href="#">Home</a></li>
+//                <li><a href="#">Library</a></li>
+//                <li class="active">Data</li>
+//            </ol>
 }
