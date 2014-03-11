@@ -111,7 +111,7 @@ function selectFile(object) {
 }
 
 function deselectFile(object) {
-    searchAndRemove(selected_files, $(object).attr("id"))
+    searchAndRemove(selected_files, $(object).attr("id"));
 }
 
 function selectCheckboxClick(object) {
@@ -148,11 +148,25 @@ function parseFolderRevert(path) {
     return path.replace(/,/g, "\/").replace(/\"/g, "").replace(/ /g, "");
 }
 
-function generateFullPathBreadcrumb(path){
-//    $('#mainFileManagerFullPathLabel').text(mainFullPath);
-//    <ol class="breadcrumb">
-//                <li><a href="#">Home</a></li>
-//                <li><a href="#">Library</a></li>
-//                <li class="active">Data</li>
-//            </ol>
+function generateFullPathBreadcrumb(path) {
+    var arr = [];
+    arr = path.split(",");
+    arr.splice(0, 1);
+    var str = "<ol class=\"breadcrumb\">";
+    var stack = [];
+    for (var i = 0; i < arr.length; i++) {
+        stack += "," + arr[i];
+        if (i === arr.length - 1) {
+            str += "<li class=\"active\">";
+            str += arr[i];
+            str += "</li>";
+        }
+        else {
+            str += "<li>";
+            str += "<a onclick=\"getFolderList('" + stack.toString() + "');\">" + arr[i] + "</a>";
+            str += "</li>";
+        }
+    }
+    str += "</ol>";
+    $('#mainFileManagerFullPathLabel').html(str);
 }
