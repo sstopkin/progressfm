@@ -64,7 +64,7 @@ public class UploadController {
         return content;
     }
 
-    public String uploadFile(InputStream uploadInputStream, FormDataContentDisposition fileDetail,
+    public boolean uploadFile(InputStream uploadInputStream, FormDataContentDisposition fileDetail,
             String path) throws FileNotFoundException, IOException, CustomException {
         String filename = fileDetail.getFileName();
 //        String type = filename.substring(filename.lastIndexOf('.') + 1);
@@ -86,7 +86,6 @@ public class UploadController {
         out.flush();
         out.close();
 
-//        apartamentsPhotoController.addApartamentPhoto(session, newFileName.toString(), "test", "1");
-        return null;
+        return true;
     }
 }

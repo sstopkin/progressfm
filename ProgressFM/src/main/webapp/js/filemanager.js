@@ -92,6 +92,7 @@ function getFolderList(path) {
                 str += "</tr>";
             });
             $("#mainFileManagerFileList").html(str);
+            $("#filemanagerUploadFilePath").val(mainFullPath);
             $(".file-select").click(function() {
                 selectCheckboxClick(this);
             });
@@ -169,4 +170,9 @@ function generateFullPathBreadcrumb(path) {
     }
     str += "</ol>";
     $('#mainFileManagerFullPathLabel').html(str);
+}
+
+function uploadFile(){
+    $('#loadContent').submit();
+    $('#filemanagerUploadFile').modal('toggle');
 }

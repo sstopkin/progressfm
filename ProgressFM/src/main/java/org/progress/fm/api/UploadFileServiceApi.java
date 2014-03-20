@@ -30,7 +30,7 @@ public class UploadFileServiceApi {
             @FormDataParam("file") final FormDataContentDisposition fileDetail,
             @FormDataParam("path") final String path)
             throws CharacterCodingException, IOException, FileNotFoundException, CustomException {
-        String resp = uploadController.uploadFile(uploadedInputStream, fileDetail, path);
+        boolean resp = uploadController.uploadFile(uploadedInputStream, fileDetail, path);
         return ApiHelper.getResponse(resp);
     }
 }
