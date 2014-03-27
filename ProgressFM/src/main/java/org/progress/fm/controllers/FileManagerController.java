@@ -20,10 +20,6 @@ public class FileManagerController {
         return DaoFactory.getFileManagerDao().getFileByPath(path);
     }
 
-    public Object getHomeFolder() {
-        return DaoFactory.getFileManagerDao().getHomeFolder();
-    }
-
     public Object mkDir(String path) {
         return DaoFactory.getFileManagerDao().mkDir(path);
     }

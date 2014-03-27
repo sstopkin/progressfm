@@ -21,7 +21,7 @@ function getFileManagerPage() {
     $.get("fm.html", function(data) {
         $("#mainContainer").html(data);
     });
-    getFolderList(",tmp");
+    getFolderList(",");
 }
 
 function showDanger(message) {

@@ -13,6 +13,7 @@ import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.progress.fm.exceptions.BadFileFormatException;
 import org.progress.fm.exceptions.BadRequestException;
 import org.progress.fm.exceptions.CustomException;
+import org.progress.fm.logic.Constants;
 
 @Singleton
 public class UploadController {
@@ -73,7 +74,7 @@ public class UploadController {
         int read = 0;
         byte[] bytes = new byte[1024];
 
-        File directory = new File(path);
+        File directory = new File(Constants.SETTINGS.BASEPATH+path);
         if (!directory.exists()) {
             directory.mkdirs();
         }

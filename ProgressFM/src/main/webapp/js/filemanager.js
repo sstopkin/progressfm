@@ -39,17 +39,7 @@ function getUpFolder() {
 }
 
 function getHomeFolder() {
-    $.ajax({
-        type: "GET",
-        url: "api/fm/gethome",
-        success: function(data) {
-            getFolderList(parseFolder(JSON.parse(data)[0]));
-        },
-        error: function(data) {
-            showDanger(data.responseText);
-            return false;
-        }
-    });
+    getFolderList(",");
 }
 
 function getFolderList(path) {
@@ -76,7 +66,7 @@ function getFolderList(path) {
                 if (entry.isFile) {
                     str += "<td>";
                     str += "<span class=\"glyphicon glyphicon-file\"></span> ";
-                    str += "<a href=\"/api/fm/getfile" + entry.path + "\">" + entry.name + "</a>"
+                    str += "<a href=\"/api/fm/getfile/" + entry.path + "\">" + entry.name + "</a>"
                     str += "</td>";
                     str += "<td>" + entry.size + "</td>";
                 }
@@ -152,27 +142,37 @@ function parseFolderRevert(path) {
 function generateFullPathBreadcrumb(path) {
     var arr = [];
     arr = path.split(",");
-    arr.splice(0, 1);
+//    arr.splice(0, 1);
     var str = "<ol class=\"breadcrumb\">";
     var stack = [];
-    for (var i = 0; i < arr.length; i++) {
-        stack += "," + arr[i];
-        if (i === arr.length - 1) {
-            str += "<li class=\"active\">";
-            str += arr[i];
-            str += "</li>";
-        }
-        else {
-            str += "<li>";
-            str += "<a onclick=\"getFolderList('" + stack.toString() + "');\">" + arr[i] + "</a>";
-            str += "</li>";
-        }
+    if (path == "") {
+        str += "<li>";
+        str += "<a onclick=\"getFolderList(',');\">/</a>";
+        str += "</li>";
     }
-    str += "</ol>";
+    else {
+        var res = "";
+        for (var i = 0; i < arr.length; i++) {
+            stack += "," + arr[i];
+            if (i === arr.length - 1) {
+                res += "<li class=\"active\">";
+                res += arr[i];
+                res += "</li>";
+            }
+            else {
+                res += "<li>";
+                res += "<a onclick=\"getFolderList('" + stack.toString() + "');\">" + arr[i] + "</a>";
+                res += "</li>";
+            }
+        }
+        res += "</ol>";
+        console.log("stack" + stack.toString());
+    }
     $('#mainFileManagerFullPathLabel').html(str);
 }
 
-function uploadFile(){
+function uploadFile() {
     $('#loadContent').submit();
     $('#filemanagerUploadFile').modal('toggle');
+    getFolderList(mainFullPath);
 }

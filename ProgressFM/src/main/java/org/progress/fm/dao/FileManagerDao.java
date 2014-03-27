@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.progress.fm.logic.Constants;
 
 /**
  *
@@ -19,25 +20,19 @@ import java.util.logging.Logger;
 public class FileManagerDao {
 
     public File getFileByPath(String path) {
-        File result = new File("//" + path);
+        File result = new File(Constants.SETTINGS.BASEPATH + "//" + path);
         return result;
     }
 
-    public List getHomeFolder() {
-        List res = new ArrayList();
-        res.add("/tmp");
-        return res;
-    }
-
     public boolean mkDir(String path) {
-        return (new File(path)).mkdir();
+        return (new File(Constants.SETTINGS.BASEPATH + path)).mkdir();
     }
 
     public boolean removeFile(String path) {
         String[] parts = path.replaceAll("\"", "").split(",");
         List<String> wordList = Arrays.asList(parts);
         for (String f : wordList) {
-            File file = new File(f);
+            File file = new File(Constants.SETTINGS.BASEPATH + f);
             if (file.isDirectory()) {
                 try {
                     delete(file);
@@ -84,13 +79,13 @@ public class FileManagerDao {
 
     public List getFolderFileList(String path) {
         // Directory path here
-        File folder = new File(path);
+        File folder = new File(Constants.SETTINGS.BASEPATH + path);
         File[] listOfFiles = folder.listFiles();
         List result = new ArrayList();
 
         for (File file : listOfFiles) {
             String lastMfDate = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date(folder.lastModified()));
-            result.add(new CustomFile(file.getName(), file.getPath(), lastMfDate, String.valueOf(file.length()), file.isFile()));
+            result.add(new CustomFile(file.getName(), file.getPath().replace(Constants.SETTINGS.BASEPATH, ""), lastMfDate, String.valueOf(file.length()), file.isFile()));
         }
         return result;
     }

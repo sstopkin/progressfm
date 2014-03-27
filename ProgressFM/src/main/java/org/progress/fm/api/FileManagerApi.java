@@ -53,14 +53,6 @@ public class FileManagerApi {
     }
 
     @GET
-    @Path("gethome")
-    public Response getFolderFileList() throws CustomException {
-        Gson rootFolderFileList = new GsonBuilder().create();
-        String result = rootFolderFileList.toJson(fileManagerController.getHomeFolder());
-        return ApiHelper.getResponse(result);
-    }
-
-    @GET
     @Path("getfile/{path:.*}")
     @Produces("application/force-download")
     public Response getPriceByApartamentsId(@PathParam("path") String path) {
