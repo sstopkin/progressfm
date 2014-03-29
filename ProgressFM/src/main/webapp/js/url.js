@@ -78,7 +78,6 @@ function helpParseUrl(uri, arr, type) {
             getFileManagerPage();
             return;
         }
-
         get404Page(uri);
         return;
     }
@@ -89,20 +88,6 @@ function helpParseUrl(uri, arr, type) {
                 return;
             }
             getFolderContent(arr[2]);
-            return;
-        }
-
-        if ((arr[1] === "view") && (type === "announcements")) {
-            if (!arr[2]) {
-                showDanger();
-                return;
-            }
-            getAnnouncementsViewPage(arr[2]);
-            return;
-        }
-        if ((arr[1] === "list") && (type === "apartaments"))
-        {
-            getApartamentsListPage();
             return;
         }
         get404Page(uri);

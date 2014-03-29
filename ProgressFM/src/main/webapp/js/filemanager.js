@@ -14,19 +14,38 @@ function refreshFileList() {
 }
 
 function mkDir() {
-    var basePath = mainFullPath;
-    var newFolderName = $('#mainFileManagerNewPathName').val();
-    $('#filemanagerCreateFolder').modal('hide');
-    $.ajax({
-        type: "POST",
-        url: "api/fm/mkdir",
-        data: {path: basePath + "/" + newFolderName},
-        success: function(data) {
-            getFolderList(parseFolder(basePath));
-        },
-        error: function(data) {
-            showDanger(data.responseText);
-            return false;
+    var some_html = "<label class=\"control-label\">Имя папки</label>";
+    some_html += "<input id=\"mainFileManagerNewPathName\" type=\"text\" class=\"form-control\">";
+    bootbox.dialog({
+        title: "<h4 class=\"modal-title\">Создать папку</h4></div>",
+        message: some_html,
+        buttons: {
+            success: {
+                label: "Создать",
+                className: "btn-success",
+                callback: function() {
+                    var basePath = mainFullPath;
+                    var newFolderName = $('#mainFileManagerNewPathName').val();
+                    $.ajax({
+                        type: "POST",
+                        url: "api/fm/mkdir",
+                        data: {path: basePath + "/" + newFolderName},
+                        success: function(data) {
+                            getFolderList(parseFolder(basePath));
+                        },
+                        error: function(data) {
+                            showDanger(data.responseText);
+                            return false;
+                        }
+                    });
+                }
+            },
+            danger: {
+                label: "Отмена",
+                className: "btn-danger",
+                callback: function() {
+                }
+            }
         }
     });
 }
@@ -82,7 +101,6 @@ function getFolderList(path) {
                 str += "</tr>";
             });
             $("#mainFileManagerFileList").html(str);
-            $("#filemanagerUploadFilePath").val(mainFullPath);
             $(".file-select").click(function() {
                 selectCheckboxClick(this);
             });
@@ -168,11 +186,33 @@ function generateFullPathBreadcrumb(path) {
         res += "</ol>";
         console.log("stack" + stack.toString());
     }
-    $('#mainFileManagerFullPathLabel').html(str);
 }
 
 function uploadFile() {
-    $('#loadContent').submit();
-    $('#filemanagerUploadFile').modal('toggle');
-    getFolderList(mainFullPath);
+    var some_html = "<form id=\"loadContent\" action=\"api/fileupload\" method=\"post\" enctype=\"multipart/form-data\" target=\"contentFrame\">";
+    some_html += "<label class=\"control-label\">Файл</label>";
+    some_html += "<input type=\"file\" name=\"file\" class=\"form-control\" id=\"fileName\">";
+    some_html += "<label class=\"control-label\">Путь</label>";
+    some_html += "<input id=\"filemanagerUploadFilePath\" name=\"path\" value=\"\" type=\"text\" class=\"form-control\">";
+    some_html += "</form>";
+    bootbox.dialog({
+        title: "<h4 class=\"modal-title\">Загрузить файл</h4></div>",
+        message: some_html,
+        buttons: {
+            success: {
+                label: "Загрузить",
+                className: "btn-success",
+                callback: function() {
+                    $("#filemanagerUploadFilePath").val(mainFullPath);
+                    $('#loadContent').submit();
+                }
+            },
+            danger: {
+                label: "Отмена",
+                className: "btn-danger",
+                callback: function() {
+                }
+            }
+        }
+    });
 }

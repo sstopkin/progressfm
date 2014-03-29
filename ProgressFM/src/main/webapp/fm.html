@@ -10,8 +10,8 @@
                         <button type="button" class="btn btn-default" id="reload" onclick="refreshFileList()"><span class="glyphicon glyphicon-refresh" title="Обновить"></span></button>
                     </div>
                     <div class="btn-group" id="actions">
-                        <a data-toggle="modal" href="#filemanagerCreateFolder" class="btn btn-default"><span class="glyphicon glyphicon-folder-close" title="Создать директорию"></span></a>
-                        <a data-toggle="modal" href="#filemanagerUploadFile" class="btn btn-default"><span class="glyphicon glyphicon-cloud-upload" title="Загрузить на сервер"></span></a>
+                        <button type="button" class="btn btn-default" id="mkDir" onclick="mkDir()"><span class="glyphicon glyphicon-folder-close" title="Создать директорию"></span></button>
+                        <button type="button" class="btn btn-default" id="uploadFile" onclick="uploadFile()"><span class="glyphicon glyphicon-cloud-upload" title="Загрузить на сервер"></span></button>
                     </div>
                     <div class="btn-group" id="actions2">
                         <button type="button" class="btn btn-default" id="remove"><span class="glyphicon glyphicon-trash" title="Удалить!"></span></button>        
@@ -24,52 +24,3 @@
     <!-- Table -->
     <div id="mainFileManagerFileList"></div>
 </div>
-<!-- Modal -->
-<div class="modal" id="filemanagerUploadFile" tabindex="-1" role="dialog" aria-labelledby="filemanagerUploadFileLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form id="loadContent" action="api/fileupload" method="post" enctype="multipart/form-data" target="contentFrame">
-                <div class="modal-header">
-                    <h4 class="modal-title">Загрузить файл</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <div class="input-group">
-                            <label class="control-label">Файл</label>
-                            <input type="file" name="file" class="form-control" id="fileName">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Путь</label>
-                        <input id="filemanagerUploadFilePath" name="path" value="" type="text" class="form-control">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-success" id="contentLoad" onclick="uploadFile();">Загрузить</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Закрыть</button>
-                </div>
-            </form>
-        </div> <!--/.modal-content--> 
-    </div> <!--/.modal-dialog--> 
-</div> <!--/.modal -->
-
-<!-- Modal -->
-<div class="modal" id="filemanagerCreateFolder" tabindex="-1" role="dialog" aria-labelledby="filemanagerCreateFolderLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Создать папку</h4>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label class="control-label">Имя папки</label>
-                    <input id="mainFileManagerNewPathName" type="text" class="form-control">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-success" id="filemanagerCreateFolderSubmit" onclick="mkDir()">Создать</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Закрыть</button>
-            </div>
-        </div> <!--/.modal-content--> 
-    </div> <!--/.modal-dialog--> 
-</div> <!--/.modal -->
