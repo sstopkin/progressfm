@@ -33,17 +33,15 @@ public class FileManagerDao {
         List<String> wordList = Arrays.asList(parts);
         for (String f : wordList) {
             File file = new File(Constants.SETTINGS.BASEPATH + f);
-            if (file.isDirectory()) {
-                try {
-                    delete(file);
-                } catch (IOException ex) {
-                    Logger.getLogger(FileManagerDao.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                if (file.delete()) {
-                    System.out.println(file.getName() + " is deleted!");
-                } else {
-                    System.out.println("Delete operation is failed.");
-                }
+            try {
+                delete(file);
+            } catch (IOException ex) {
+                Logger.getLogger(FileManagerDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if (!file.exists()) {
+                System.out.println(file.getName() + " is deleted!");
+            } else {
+                System.out.println("Delete operation is failed.");
             }
         }
         return true;
