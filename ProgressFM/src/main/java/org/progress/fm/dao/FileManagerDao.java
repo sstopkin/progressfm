@@ -81,9 +81,11 @@ public class FileManagerDao {
         File[] listOfFiles = folder.listFiles();
         List result = new ArrayList();
 
-        for (File file : listOfFiles) {
-            String lastMfDate = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date(folder.lastModified()));
-            result.add(new CustomFile(file.getName(), file.getPath().replace(Constants.SETTINGS.BASEPATH, ""), lastMfDate, String.valueOf(file.length()), file.isFile()));
+        if (listOfFiles != null) {
+            for (File file : listOfFiles) {
+                String lastMfDate = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date(folder.lastModified()));
+                result.add(new CustomFile(file.getName(), file.getPath().replace(Constants.SETTINGS.BASEPATH, ""), lastMfDate, String.valueOf(file.length()), file.isFile()));
+            }
         }
         return result;
     }
